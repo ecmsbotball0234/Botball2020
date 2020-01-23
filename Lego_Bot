@@ -1,1 +1,103 @@
+#include <kipr/botball.h>
+void drive_forward (int ticks);
+void drive_backward (int ticks);
+void turn_right (int ticks, int power);		
+void turn_left (int ticks, int power);		
+void close ();
+void open ();
 
+
+int main()
+{
+    shut_down_in(119);
+    open();//open claws
+    drive_forward(1000); //go to transport
+    close(); //grab transport
+    drive_backward(1000); //drive backward with transport 
+    turn_right(2200,100); //turn toward 
+    drive_forward(1000); // go toward wall to start going to the wall
+    turn_left(2200,100); //turn toward other wall
+    //make somthing for turn and drive foward
+    drive_forward(1000); //go up ramp
+    turn_left(2200,100); // turn toward platform
+    drive_forward(1000); // go to the start of the meeples
+    open(); //open claw
+    drive_forward(1000); // drive further along and pray to god that the claw hits the meeples off
+    
+    
+    return 0;
+}
+
+
+
+void drive_forward (int ticks) 
+{ 
+    cmpc(1);
+    cmpc(2);
+
+    while (gmpc(1) < ticks) {
+        if (gmpc(2) < gmpc(1)) {
+            motor(1,95);
+            motor(2,100);
+        }
+        else if (gmpc(1) < gmpc(2)) {
+            motor(1,100);
+            motor(2,95);
+        }
+        else {
+            motor(1,100);
+            motor(2,100);
+        }
+        printf("drive_forward/n");
+    }
+}
+void drive_backward (int ticks) { 
+    cmpc(1);
+    cmpc(2);
+
+    while (gmpc(1) > ticks) {
+        if (gmpc(2) > gmpc(1)) {
+            motor(1,95);
+            motor(2,100);
+        }
+        else if (gmpc(1) > gmpc(2)) {
+            motor(1,100);
+            motor(2,95);
+        }
+        else {
+            motor(1,100);
+            motor(2,100);
+        }
+        printf("drive_backward/n");
+    }
+}
+void turn_right (int ticks, int power) {
+    cmpc(1);
+    cmpc(2);
+
+    while (gmpc(1) < ticks) {
+        motor(1,100);
+        motor(2,power);
+    }
+    printf("turn_right/n");
+}
+
+void turn_left (int ticks, int power) {
+    cmpc(1);
+    cmpc(2);
+
+    while (gmpc(1) < ticks) {
+        motor(1,power);
+        motor(2,100);
+    }
+}
+void close () {
+    set_servo_position(1,1024);
+    set_servo_position(0,1024);
+    printf("close/n");
+}	
+void open () {
+    set_servo_position(1,1900);
+    set_servo_position(0,150);
+    printf("open/n");
+}
