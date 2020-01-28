@@ -49,6 +49,9 @@ int main()
     create_drive_direct(-100,0);
     msleep(1500);
     
+    create_drive_direct(-200,-200);
+    msleep(4000);
+    
     create_disconnect();//turns off motors
      
     return 0;
