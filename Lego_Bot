@@ -9,21 +9,23 @@ void open ();
 
 int main()
 {
+    printf("Starting Checkpoint");
     shut_down_in(119);
+    enable_servos();
     open();//open claws
     drive_forward(1000); //go to transport
     close(); //grab transport
     drive_backward(1000); //drive backward with transport 
-    turn_right(2200,100); //turn toward 
+    turn_right(2200,0); //turn toward 
     drive_forward(1000); // go toward wall to start going to the wall
-    turn_left(2200,100); //turn toward other wall
-    //make somthing for turn and drive foward
+    turn_left(2200,0); //turn toward other wall
+    turn_left(2200,50); // get to start of rampccccc
     drive_forward(1000); //go up ramp
-    turn_left(2200,100); // turn toward platform
+    turn_left(2200,0); // turn toward platform
     drive_forward(1000); // go to the start of the meeples
     open(); //open claw
     drive_forward(1000); // drive further along and pray to god that the claw hits the meeples off
-    
+    disable_servos();
     
     return 0;
 }
