@@ -33,26 +33,50 @@ int main()
     return 0;
 }
 
-void drive_forward (int ticks) { 
+void drive_forward (int ticks) 
+{ 
     cmpc(1);
     cmpc(2);
-
-    while (gmpc(1) < ticks) {
-        motor(1,100);
-        motor(2,100);
-        printf("drive_forward\n");
+    while(gmpc(1) < ticks);
+    {
+        if(gmpc(1) < gmpc(2))
+        {
+            motor(1,100);
+            motor(2,95);
+        }
+        else if(gmpc(2) < gmpc(1))
+        {
+            motor(1,95);
+            motor(2,100);
+        }
+        else
+        {
+            motor(1,100);
+            motor(2,100);
+        }
     }
 }
-
-void drive_backward(int ticks) {
+void drive_backward (int ticks) 
+{ 
     cmpc(1);
     cmpc(2);
-
-    while (gmpc(1) > ticks) {
-        motor(1,-100);
-        motor(2,-100);
-        
-       printf("drive_backwards\n");
+    while(gmpc(1) > ticks)
+    {
+        if(gmpc(1) > gmpc(2))
+        {
+            motor(1,-100);
+            motor(2,-95);
+        }
+        else if(gmpc(2) > gmpc(1))
+        {
+            motor(1,-95);
+            motor(2,-100);
+        }
+        else
+        {
+            motor(1,-100);
+            motor(2,-100);
+        }
     }
 }
 
