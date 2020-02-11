@@ -12,10 +12,11 @@ int main()
     shut_down_in(119);
     enable_servos();
     open_claw();//open claws
-    drive_forward(1000); //go to transport
+    drive_forward(9000); //go to transport
+    msleep(100);
     printf("At the transport\n");
     close_claw(); //grab transport
-    drive_backward(-1000); //drive backward with transport 
+    drive_backward(-9000); //drive backward with transport 
     printf("Driving back\n");
     turn_right(2200,-100); //turn toward 
     printf("Turning\n");
@@ -37,19 +38,9 @@ void drive_forward (int ticks) {
     cmpc(2);
 
     while (gmpc(1) < ticks) {
-        if (gmpc(2) < gmpc(1)) {
-            motor(1,95);
-            motor(2,100);
-        }
-        else if (gmpc(1) < gmpc(2)) {
-            motor(1,100);
-            motor(2,95);
-        }
-        else {
-            motor(1,100);
-            motor(2,100);
-        }
-        printf("drive_forward/n");
+        motor(1,100);
+        motor(2,100);
+        printf("drive_forward\n");
     }
 }
 
@@ -58,19 +49,10 @@ void drive_backward(int ticks) {
     cmpc(2);
 
     while (gmpc(1) > ticks) {
-        if (gmpc(2) > gmpc(1)) {
-            motor(1,-95);
-            motor(2,-100);
-        }
-        else if (gmpc(1) > gmpc(2)) {
-            motor(1,-100);
-            motor(2,-95);
-        }
-        else {
-            motor(1,-100);
-            motor(2,-100);
-        }
-        printf("drive_backwards/n");
+        motor(1,-100);
+        motor(2,-100);
+        
+       printf("drive_backwards\n");
     }
 }
 
@@ -100,7 +82,7 @@ void close_claw () {
     printf("close/n");
 }	
 void open_claw () {
-    set_servo_position(1,1900);
-    set_servo_position(2,150);
+    set_servo_position(1,125);
+    set_servo_position(2,1900);
     printf("open/n");
 }
